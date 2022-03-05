@@ -1,6 +1,5 @@
 require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-etherscan");
-require("hardhat-gas-reporter");
 
 let secret = require("./secret")
 
@@ -22,7 +21,8 @@ module.exports = {
   networks: {
     hardhat: {
       forking: {
-        url: secret.mainnetURL
+        url: secret.mainnetURL,
+        blockNumber: 14326000
       },
       chainId: 1
     },
@@ -50,9 +50,5 @@ module.exports = {
       polygon: secret.polygonscanApiKey,
       polygonMumbai: secret.polygonscanApiKey,
     }
-  },
-  gasReporter: {
-    currency: 'EUR',
-    gasPrice: 68
   }
 };
