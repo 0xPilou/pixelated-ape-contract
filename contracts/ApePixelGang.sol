@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 // Ape Pixel Gang 10k NFT Project
-// 
+//
 // Author: 0xPilou
 
 pragma solidity ^0.8.0;
@@ -37,6 +37,12 @@ contract ApePixelGang is ERC721, Ownable {
     {
         tokenCounter = 0;
         setNotRevealedURI(_initNotRevealedURI);
+        
+        // Mint 30 Ape Pixel Gang for the team & giveaway
+        for (uint256 i = 0; i < 30; i++) {
+            tokenCounter = tokenCounter + 1;
+            _safeMint(msg.sender, tokenCounter);
+        }
     }
 
     // Helper to check if the start block has passed
@@ -46,7 +52,6 @@ contract ApePixelGang is ERC721, Ownable {
     }
 
     // Mint Function
-    // Can mint up to 10 Bottles at once
     function mint(uint256 _num) public payable {
         require(
             mintingStarted(),
@@ -54,7 +59,7 @@ contract ApePixelGang is ERC721, Ownable {
         );
         require(tokenCounter < MAX_QTY, "All collectible have been minted !");
         require(
-            _num > 0 && _num <= 2,
+            _num > 0 && _num <= 10,
             "You can mint no fewer than 1, and no more than 10 collectible at a time"
         );
         require(
