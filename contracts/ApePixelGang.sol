@@ -7,7 +7,7 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "openzeppelin-solidity/contracts/token/ERC20/utils/SafeERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -28,7 +28,7 @@ contract ApePixelGang is ERC721, Ownable {
     address public constant founder2 =
         0xf1088C8a435e46f8e75EAcd62Df584D96B310866;
     address public constant apecoin =
-        0xf1088C8a435e46f8e75EAcd62Df584D96B310866;
+        0x4d224452801ACEd8B2F0aebE155379bb5D594381;
 
     string baseTokenURI;
     string public notRevealedURI;
@@ -80,7 +80,7 @@ contract ApePixelGang is ERC721, Ownable {
     }
 
     // Mint Function - accept APECOIN as payment
-    function mint(uint256 _num) public {
+    function mintWithApecoin(uint256 _num) public {
         require(
             mintingStarted(),
             "It is not time to mint the collectible yet !"
@@ -95,9 +95,14 @@ contract ApePixelGang is ERC721, Ownable {
             "I'm afraid you've failed to mint too many collectible"
         );
 
+        IERC20(apecoin).safeTransferFrom(
+            msg.sender,
+            address(this),
+            apecoinPrice * _num
+        );
+
         for (uint256 i = 0; i < _num; i++) {
             tokenCounter = tokenCounter + 1;
-            IERC20(apecoin).safeTransferFrom(msg.sender, address(this), apecoinPrice);
             _safeMint(msg.sender, tokenCounter);
         }
     }
