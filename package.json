@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "hardhat": "^2.8.4"
+    "hardhat": "^2.8.4",
+    "truffle-assertions": "^0.9.2"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.5",
