@@ -19,7 +19,8 @@ contract ApePixelGang is ERC721, Ownable {
     uint256 public constant MAX_QTY = 10000;
     uint256 public price = 0.05 ether;
     uint256 public apecoinPrice = 15e18;
-    uint256 public startBlock;
+    uint256 public startBlock =
+        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff;
 
     address public constant boredApeContract =
         0x4c8734D7978373DE413aD6d36bFCafB7f76F6bb1;
