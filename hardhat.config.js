@@ -21,10 +21,9 @@ module.exports = {
   networks: {
     hardhat: {
       forking: {
-        url: secret.mainnetURL,
-        blockNumber: 14435100
+        url: secret.mainnetURL
+        // blockNumber: 14435100
       },
-      chainId: 1
     },
     mainnet: {
       url: secret.mainnetURL,
