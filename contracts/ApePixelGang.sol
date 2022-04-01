@@ -7,11 +7,12 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract ApePixelGang is ERC721, Ownable {
+contract ApePixelGang is ERC721Enumerable, Ownable {
     using SafeERC20 for IERC20;
     using Strings for uint256;
 
@@ -134,8 +135,28 @@ contract ApePixelGang is ERC721, Ownable {
     }
 
     // Return the current total supply
-    function totalSupply() public view returns (uint256) {
+    function totalSupply() public view override returns (uint256) {
         return tokenCounter;
+    }
+
+    // Return an array containing the token ID of owned by _owner
+    function tokensOfOwner(address _owner)
+        external
+        view
+        returns (uint256[] memory)
+    {
+        uint256 tokenCount = balanceOf(_owner);
+        if (tokenCount == 0) {
+            // Return an empty array
+            return new uint256[](0);
+        } else {
+            uint256[] memory result = new uint256[](tokenCount);
+            uint256 index;
+            for (index = 0; index < tokenCount; index++) {
+                result[index] = tokenOfOwnerByIndex(_owner, index);
+            }
+            return result;
+        }
     }
 
     /*
