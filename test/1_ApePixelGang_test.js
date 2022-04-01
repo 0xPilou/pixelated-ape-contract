@@ -149,6 +149,13 @@ describe("Ape Pixel Gang Contract Unit Tests", function () {
         expect(tokenCount.toString()).to.equal("32")
     });
 
+    it("should return the token ID owned by the user", async () => {
+        let tokenIDs = [];
+        tokenIDs = await contract.tokensOfOwner(user.address);
+        expect(tokenIDs[0].toString()).to.equal("31")
+        expect(tokenIDs[1].toString()).to.equal("32")
+    });
+
     it("should returns the unrevealed URI (reveal not done yet)", async () => {
 
         const URI = await contract.tokenURI(1);
